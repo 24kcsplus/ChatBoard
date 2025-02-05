@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
 	<meta charset="utf-8">
+	<meta name="author" content="Muhamad Nauval Azhar">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
-	<title>登录</title>
-	<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+	<meta name="description" content="This is a login page template based on Bootstrap 5">
+	<title>忘记密码</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -17,42 +19,26 @@
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<h1 class="fs-4 card-title fw-bold mb-4">登录</h1>
+							<h1 class="fs-4 card-title fw-bold mb-4">忘记密码</h1>
 							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
 								<div class="mb-3">
-									<label class="mb-2 text-muted" for="email">用户名/电子邮箱</label>
+									<label class="mb-2 text-muted" for="email">电子邮箱</label>
 									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
 									<div class="invalid-feedback">
-										用户名/电子邮箱地址不能为空
+										电子邮箱无效
 									</div>
-								</div>
-
-								<div class="mb-3">
-									<div class="mb-2 w-100">
-										<label class="text-muted" for="password">密码</label>
-										<a href="forgot.html" class="float-end">
-											忘记密码？
-										</a>
-									</div>
-									<input id="password" type="password" class="form-control" name="password" required>
-								    <div class="invalid-feedback">
-								    	密码不能为空
-							    	</div>
 								</div>
 
 								<div class="d-flex align-items-center">
-									<div class="form-check">
-										<input type="checkbox" name="remember" id="remember" class="form-check-input">
-									</div>
 									<button type="submit" class="btn btn-primary ms-auto">
-										登录
+										发送重置密码链接
 									</button>
 								</div>
 							</form>
 						</div>
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
-								还没有账号？ <a href="register.html" class="text-dark">注册</a>
+								想起密码了？ <a href="login.html" class="text-dark">登录</a>
 							</div>
 						</div>
 					</div>
@@ -64,6 +50,6 @@
 		</div>
 	</section>
 
-	<script src="js/login.js"></script>
+	<script src="js/forgot.js"></script>
 </body>
 </html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>留言板</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/message_style.css">
+</head>
+<body>
+
+<!--导航栏-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">留言板</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">
+                        首页
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="login.html">
+                        登录
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="register.html">
+                        注册
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <!-- 居中卡片，设置最大宽度为600px -->
+    <div class="card mx-auto" style="max-width: 600px;">
+        <div class="card-header">
+            留言板
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="message" class="form-label">留言内容</label>
+                    <textarea class="form-control" id="message" rows="5" placeholder="请输入您的留言"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">提交留言</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <!-- 留言列表 -->
+    <div class="card mx-auto mb-4" style="max-width: 600px;">
+        <div class="card-header">
+            最新留言（2）
+        </div>
+
+        <div class="list-group list-group-flush" id="commentList">
+            <!-- 示例留言 -->
+            <div class="list-group-item py-3">
+                <div class="d-flex gap-3">
+                    <img src="https://via.placeholder.com/40" class="avatar rounded-circle">
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between mb-2">
+                            <h6 class="mb-0 fw-bold">张三</h6>
+                            <small class="text-muted">2小时前</small>
+                        </div>
+                        <p class="mb-2">这是一个主留言示例</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-outline-secondary like-btn">
+                                <span class="icon-wrapper">
+                                    <i class="bi bi-hand-thumbs-up"></i>
+                                    <i class="bi bi-hand-thumbs-up-fill"></i>
+                                </span>
+                                <span class="count">5</span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary reply-btn"
+                                    data-user="张三">
+                                回复
+                            </button>
+                        </div>
+
+                        <!-- 一级回复 -->
+                        <div class="reply-item mt-3">
+                            <div class="d-flex gap-3">
+                                <img src="https://via.placeholder.com/40" class="avatar rounded-circle">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h6 class="mb-0 fw-bold">李四
+                                            <span class="text-muted fw-normal">回复
+                                                    <span class="mention">@张三</span>
+                                                </span>
+                                        </h6>
+                                        <small class="text-muted">1小时前</small>
+                                    </div>
+                                    <p class="mb-2">这是一级回复内容</p>
+                                    <div class="d-flex gap-2">
+                                        <button class="btn btn-sm btn-outline-secondary like-btn">
+                                            <span class="icon-wrapper">
+                                            <i class="bi bi-hand-thumbs-up"></i>
+                                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                                            </span>
+                                            <span class="count">5</span>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary reply-btn"
+                                                data-user="李四">
+                                            回复
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 隐藏的回复表单模板 -->
+<template id="replyTemplate">
+    <div class="reply-form mt-3">
+        <form class="reply-form">
+            <div class="input-group">
+                <textarea class="form-control"
+                          rows="2"
+                          placeholder="写下回复..."
+                          required></textarea>
+                <button class="btn btn-primary" type="submit">
+                    <i class="bi bi-send"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</template>
+
+<script src="js/message.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

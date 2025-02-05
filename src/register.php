@@ -1,8 +1,9 @@
 <?php
 require 'db.php';
+session_start();
 
 // 储存注册条件
-class registerJSON
+class RegisterJSON
 {
     public bool $username_is_empty = false;
     public bool $username_exists = false;
@@ -11,6 +12,7 @@ class registerJSON
     public bool $password_is_empty = false;
     public bool $password_is_not_complex = false;
     public bool $password_is_not_confirmed = false;
+    public bool $success = false;
 
 }
 
@@ -21,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $confirm_password = $_POST['confirm_password'];
     $email = $_POST['email'];
 
-    $register_JSON_data = new registerJSON();
+    $register_JSON_data = new RegisterJSON();
 
     // 后端检查是否为空
     if(empty($username)){
@@ -67,8 +69,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $register_JSON_data->email_exists = true;
     }
 
-    echo(json_encode($register_JSON_data));
-
     $allow_registration = true;
     foreach($register_JSON_data as $key => $value){
         if($value === true){
@@ -84,7 +84,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             'email'         => $email,
             'password_hash' => $password_hash
         ]);
+
+        $_SESSION['username'] = $username;
+        $_SESSION['logged_in'] = true;
+        $register_JSON_data->success = true;
     }
+
+    echo(json_encode($register_JSON_data));
+    exit();
+
+    // 这东西是不是加个人机验证比较好啊，不然数据库容易被爆
 }else{
     require 'pages/register.html';
 }

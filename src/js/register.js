@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 发送网络请求
         fetch(`register.php`, {
-            method: "POST", body: formData
+            method: "POST", body: formData, credentials: 'include'
         })
             .then(response => {
                 if (!response.ok) {
@@ -144,36 +144,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                // 根据后端返回结果，更新页面提示信息
-                if (data.username_is_empty){
-                    nameInput.classList.add('is-invalid');
-                    nameInput.nextElementSibling.textContent = '用户名不能为空';
-                } else if(data.username_exists){
-                    nameInput.classList.add('is-invalid');
-                    emailInput.nextElementSibling.textContent = '用户名已占用';
-                }
+                if (data.success) {
+                    window.location.href = 'index.php'; // 跳转首页
+                }else {
+                    // 根据后端返回结果，更新页面提示信息
+                    if (data.username_is_empty) {
+                        nameInput.classList.add('is-invalid');
+                        nameInput.nextElementSibling.textContent = '用户名不能为空';
+                    } else if (data.username_exists) {
+                        nameInput.classList.add('is-invalid');
+                        nameInput.nextElementSibling.textContent = '用户名已被占用';
+                    }
 
-                if (data.email_is_empty){
-                    emailInput.classList.add('is-invalid');
-                    nameInput.nextElementSibling.textContent = '邮箱不能为空';
-                } else if (data.email_exists) {
-                    emailInput.classList.add('is-invalid');
-                    emailInput.nextElementSibling.textContent = '该邮箱已被使用';
-                }
+                    if (data.email_is_empty) {
+                        emailInput.classList.add('is-invalid');
+                        nameInput.nextElementSibling.textContent = '邮箱不能为空';
+                    } else if (data.email_exists) {
+                        emailInput.classList.add('is-invalid');
+                        emailInput.nextElementSibling.textContent = '该邮箱已被使用';
+                    }
 
-                if (data.password_is_empty){
-                    passwordInput.classList.add('is-invalid');
-                    passwordInput.nextElementSibling.textContent = '密码不能为空';
-                } else if (data.password_is_not_complex){
-                    passwordInput.classList.add('is-invalid');
-                    passwordInput.nextElementSibling.textContent = '密码需包含数字、大小写字母和特殊符号(@$!%*?&)，长度8-22';
-                }
+                    if (data.password_is_empty) {
+                        passwordInput.classList.add('is-invalid');
+                        passwordInput.nextElementSibling.textContent = '密码不能为空';
+                    } else if (data.password_is_not_complex) {
+                        passwordInput.classList.add('is-invalid');
+                        passwordInput.nextElementSibling.textContent = '密码需包含数字、大小写字母和特殊符号(@$!%*?&)，长度8-22';
+                    }
 
-                if (data.password_is_not_confirmed){
-                    passwordConfirmInput.classList.add('is-invalid');
-                    passwordInput.nextElementSibling.textContent = '两次输入的密码不一致';
+                    if (data.password_is_not_confirmed) {
+                        passwordConfirmInput.classList.add('is-invalid');
+                        passwordInput.nextElementSibling.textContent = '两次输入的密码不一致';
+                    }
                 }
-
 
             })
             .catch(error => {
