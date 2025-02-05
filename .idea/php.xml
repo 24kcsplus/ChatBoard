@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="MessDetector">
+    <phpmd_settings>
+      <phpmd_by_interpreter asDefaultInterpreter="true" interpreter_id="cff16658-0b5d-48a1-aa21-f24998ebf48a" timeout="30000" />
+    </phpmd_settings>
+  </component>
   <component name="MessDetectorOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
@@ -10,9 +15,121 @@
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.4" />
+  <component name="PhpCodeSniffer">
+    <phpcs_settings>
+      <phpcs_by_interpreter asDefaultInterpreter="true" interpreter_id="cff16658-0b5d-48a1-aa21-f24998ebf48a" timeout="30000" />
+    </phpcs_settings>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.4" />
+  <component name="PhpRuntimeConfiguration">
+    <extensions>
+      <extension name="FFI" enabled="true" />
+      <extension name="LuaSandbox" enabled="true" />
+      <extension name="Parle" enabled="true" />
+      <extension name="SaxonC" enabled="true" />
+      <extension name="Zend OPcache" enabled="false" />
+      <extension name="ZendCache" enabled="true" />
+      <extension name="apache" enabled="false" />
+      <extension name="ast" enabled="true" />
+      <extension name="bcmath" enabled="false" />
+      <extension name="blackfire" enabled="true" />
+      <extension name="bz2" enabled="false" />
+      <extension name="calendar" enabled="false" />
+      <extension name="com_dotnet" enabled="true" />
+      <extension name="couchbase_v2" enabled="true" />
+      <extension name="crypto" enabled="true" />
+      <extension name="curl" enabled="false" />
+      <extension name="dba" enabled="false" />
+      <extension name="ds" enabled="true" />
+      <extension name="eio" enabled="true" />
+      <extension name="enchant" enabled="false" />
+      <extension name="event" enabled="true" />
+      <extension name="exif" enabled="false" />
+      <extension name="expect" enabled="true" />
+      <extension name="ftp" enabled="false" />
+      <extension name="gd" enabled="false" />
+      <extension name="gettext" enabled="false" />
+      <extension name="gmp" enabled="false" />
+      <extension name="imap" enabled="false" />
+      <extension name="intl" enabled="false" />
+      <extension name="ldap" enabled="false" />
+      <extension name="leveldb" enabled="true" />
+      <extension name="libvirt-php" enabled="true" />
+      <extension name="lua" enabled="true" />
+      <extension name="lzf" enabled="true" />
+      <extension name="mapscript" enabled="true" />
+      <extension name="mbstring" enabled="false" />
+      <extension name="mcrypt" enabled="false" />
+      <extension name="meminfo" enabled="true" />
+      <extension name="msgpack" enabled="true" />
+      <extension name="mssql" enabled="false" />
+      <extension name="mysql" enabled="false" />
+      <extension name="mysqli" enabled="false" />
+      <extension name="oci8" enabled="false" />
+      <extension name="odbc" enabled="false" />
+      <extension name="openssl" enabled="false" />
+      <extension name="pam" enabled="true" />
+      <extension name="parallel" enabled="true" />
+      <extension name="pcntl" enabled="false" />
+      <extension name="pcov" enabled="true" />
+      <extension name="pgsql" enabled="false" />
+      <extension name="phpdbg" enabled="true" />
+      <extension name="pq" enabled="true" />
+      <extension name="pspell" enabled="false" />
+      <extension name="radius" enabled="true" />
+      <extension name="rdkafka" enabled="true" />
+      <extension name="readline" enabled="false" />
+      <extension name="recode" enabled="false" />
+      <extension name="rpminfo" enabled="true" />
+      <extension name="shmop" enabled="false" />
+      <extension name="simdjson" enabled="true" />
+      <extension name="simple_kafka_client" enabled="true" />
+      <extension name="snmp" enabled="false" />
+      <extension name="soap" enabled="false" />
+      <extension name="sockets" enabled="false" />
+      <extension name="sodium" enabled="false" />
+      <extension name="solr" enabled="true" />
+      <extension name="stats" enabled="true" />
+      <extension name="stomp" enabled="true" />
+      <extension name="svm" enabled="true" />
+      <extension name="swoole" enabled="true" />
+      <extension name="sybase" enabled="false" />
+      <extension name="sync" enabled="true" />
+      <extension name="sysvmsg" enabled="false" />
+      <extension name="sysvsem" enabled="false" />
+      <extension name="sysvshm" enabled="false" />
+      <extension name="tidy" enabled="false" />
+      <extension name="uopz" enabled="true" />
+      <extension name="uploadprogress" enabled="true" />
+      <extension name="uuid" enabled="true" />
+      <extension name="uv" enabled="true" />
+      <extension name="wddx" enabled="false" />
+      <extension name="winbinder" enabled="true" />
+      <extension name="xcache" enabled="true" />
+      <extension name="xdiff" enabled="true" />
+      <extension name="xmlrpc" enabled="false" />
+      <extension name="xsl" enabled="false" />
+      <extension name="xxtea" enabled="true" />
+      <extension name="yaf" enabled="true" />
+      <extension name="yar" enabled="true" />
+      <extension name="zip" enabled="false" />
+      <extension name="zlib" enabled="false" />
+      <extension name="zookeeper" enabled="true" />
+      <extension name="zstd" enabled="true" />
+    </extensions>
+  </component>
+  <component name="PhpStan">
+    <PhpStan_settings>
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="2b5813b5-818d-42a9-bec9-3a42818835c1" timeout="60000" />
+    </PhpStan_settings>
+  </component>
   <component name="PhpStanOptionsConfiguration">
     <option name="transferred" value="true" />
+  </component>
+  <component name="Psalm">
+    <Psalm_settings>
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="2b5813b5-818d-42a9-bec9-3a42818835c1" timeout="60000" />
+    </Psalm_settings>
   </component>
   <component name="PsalmOptionsConfiguration">
     <option name="transferred" value="true" />
