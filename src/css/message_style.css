@@ -1,0 +1,116 @@
+/*.nav-item{*/
+/*    transition:filter 0.3s;*/
+/*}*/
+
+/*.nav-item:hover {*/
+/*    filter: brightness(80%);*/
+/*}*/
+
+/* 基础样式 */
+.message-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* 回复项样式 */
+.reply-item {
+    position: relative;
+}
+
+.reply-item::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 20px;
+    width: 20px;
+    height: 1px;
+    background: #dee2e6;
+}
+
+/* 提及样式 */
+.mention {
+    color: #0d6efd;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.mention:hover {
+    opacity: 0.8;
+}
+
+/* 回复表单动画 */
+.reply-form {
+    transition: all 0.3s ease;
+    z-index: 1;
+    margin-top: 1rem;
+}
+
+/* 活动中的回复表单 */
+.active-reply-form {
+    background-color: rgba(13, 110, 253, 0.05);
+    border-radius: 8px;
+}
+
+/* 按钮高亮状态 */
+.active-reply-button {
+    position: relative;
+    border: 2px solid #0d6efd !important;
+    box-shadow: 0 0 12px rgba(13, 110, 253, 0.3);
+    z-index: 2;
+    transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 表单元素聚焦反馈 */
+.reply-form textarea:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary.active-submit {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary.active-submit:hover {
+    border: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-primary.active-submit:focus {
+    border: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.like-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.icon-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+}
+
+/* 默认显示空心图标 */
+.bi-hand-thumbs-up-fill {
+    display: none;
+}
+
+/* 激活状态显示实心图标 */
+.like-btn.active .bi-hand-thumbs-up {
+    display: none;
+}
+
+.like-btn.active .bi-hand-thumbs-up-fill {
+    display: inline-block;
+}

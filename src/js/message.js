@@ -108,19 +108,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // 处理表单提交
-    function handleFormSubmit(form, repliedUser) {
+    async function handleFormSubmit(form, repliedUser) {
         const textarea = form.querySelector('textarea');
         const content = textarea.value.trim();
 
-        if (content) {
-            console.log('提交回复：', {
-                content: content,
-                replyTo: repliedUser
+        if (!content) return;
+
+        try {
+            const response = await fetch('api/add_message.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    content: content,
+                    parent_id: currentActiveButton?.dataset.parentId || 0,
+                    reply_to_user: currentActiveButton?.dataset.userId || null
+                })
             });
 
-            // 清空表单
-            form.remove();
-            currentReplyForm = null;
+            const result = await response.json();
+            if (result.success) {
+                await loadMessages(); // 重新加载留言
+            }
+        } catch (error) {
+            console.error('提交失败:', error);
         }
     }
+
+
+    // 留言加载部分
+    loadMessages();
+
+    async function loadMessages() {
+        try {
+            const response = await fetch('api/get_messages.php');
+            const { data } = await response.json();
+            renderMessages(data);
+        } catch (error) {
+            console.error('加载留言失败:', error);
+        }
+    }
+
+    function renderMessages(messages, container = document.getElementById('commentList'), level = 0) {
+        container.innerHTML = '';
+        messages.forEach(msg => {
+            const messageEl = createMessageElement(msg, level);
+            container.appendChild(messageEl);
+            if (msg.replies && msg.replies.length) {
+                const repliesContainer = document.createElement('div');
+                repliesContainer.className = 'replies-container';
+                renderMessages(msg.replies, repliesContainer, level + 1);
+                messageEl.querySelector('.flex-grow-1').appendChild(repliesContainer);
+            }
+        });
+    }
+
+    function createMessageElement(msg, level) {
+        const div = document.createElement('div');
+        div.className = `list-group-item py-3 ${level > 0 ? 'reply-item' : ''}`;
+        div.innerHTML = `
+        <div class="d-flex gap-3">
+            <img src="https://via.placeholder.com/40" class="avatar rounded-circle">
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between mb-2">
+                    <h6 class="mb-0 fw-bold">
+                        ${msg.username}
+                        ${msg.reply_to_username ?
+            `<span class="text-muted fw-normal">回复
+                                <span class="mention">@${msg.reply_to_username}</span>
+                            </span>` : ''}
+                        ${msg.edited_at ?
+            `<small class="text-muted ms-2">（已编辑）</small>` : ''}
+                    </h6>
+                    <small class="text-muted">${formatTime(msg.created_at)}</small>
+                </div>
+                <p class="mb-2 message-content">${msg.content}</p>
+                <div class="message-actions d-flex gap-2">
+                    <button class="btn btn-sm btn-outline-secondary like-btn ${msg.liked ? 'liked' : ''}" 
+                            data-message-id="${msg.id}">
+                        <span class="icon-wrapper">
+                            <i class="bi bi-hand-thumbs-up"></i>
+                            <i class="bi bi-hand-thumbs-up-fill"></i>
+                        </span>
+                        <span class="count">${msg.likes}</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary reply-btn" 
+                            data-user-id="${msg.user_id}"
+                            data-user="${msg.username}"
+                            data-parent-id="${msg.id}">
+                        回复
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+        return div;
+    }
+
 });
