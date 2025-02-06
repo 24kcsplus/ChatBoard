@@ -41,7 +41,11 @@
  |
  |-- init.sql // 数据库初始化，缺少users表的部分
  |-- .htaccess // 目录配置文件
+ |-- docker-compose.yml // docker部署文件
+ |-- Dockerfile
+ |-- php.ini // 确保有所需插件
  |-- README.md // 说明文件
+ 
 ```
 
 选择了前后端分离，加之对js不熟悉，家里有变故，开工晚，导致了逾期
