@@ -1,14 +1,13 @@
--- 用户表
-create table message_board.users
-(
-    id            int(11) unsigned auto_increment primary key,
-    username      varchar(50)                           not null,
-    email         varchar(100)                          not null,
-    password_hash varchar(255)                          not null,
-    created_at    timestamp default current_timestamp() not null,
-    constraint email unique (email),
-    constraint username unique (username)
-);
+CREATE TABLE `users` (
+                         `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+                         `username` varchar(50) NOT NULL,
+                         `email` varchar(100) NOT NULL,
+                         `password_hash` varchar(255) NOT NULL,
+                         `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+                         PRIMARY KEY (`id`),
+                         UNIQUE KEY `username` (`username`),
+                         UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- 留言表
 CREATE TABLE messages (
