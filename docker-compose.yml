@@ -1,0 +1,35 @@
+services:
+  # PHP + Apache 服务
+  php-apache:
+    build: .
+    container_name: php-apache-chatboard
+    volumes:
+      - ./src:/var/www/html  # 把本地代码挂载到容器的 /var/www/html 目录
+      - ./php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "8080:80"  # 映射端口，将容器的 80 端口映射到本地的 8080 端口
+    depends_on:
+      - mysql  # 确保 MySQL 服务先启动
+    networks:
+      - app-network
+
+  # MySQL 服务
+  mysql:
+    image: mysql:8.4.4
+    container_name: mysql-chatboard
+    environment:
+      MYSQL_ROOT_PASSWORD: HC%XKkLCx15c  # 设置 root 用户密码，部署时一定要修改
+      MYSQL_DATABASE: message_board
+      MYSQL_USER: message_board
+      MYSQL_PASSWORD: Z3hrKdYbcZ47bjCK # 此处也需要修改，建议与 root 密码不一致
+    ports:
+      - "3306:3306"  # 映射 MySQL 默认端口
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql  # 持久化 MySQL 数据
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # 将本地的 init.sql 挂载到容器的初始化目录
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
