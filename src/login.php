@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user && password_verify($password, $user['password_hash'])) {
         // 启动会话（建议使用更安全的session配置）
         session_start();
-        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
         $_SESSION['logged_in'] = true;
 
         $login_JSON_data->login_success = true;

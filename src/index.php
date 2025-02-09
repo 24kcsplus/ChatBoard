@@ -42,7 +42,6 @@
         } catch(Exception $e) {
             echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         }
+    } else{
+        require 'pages/index.html';
     }
-
-
-    require 'pages/index.html';

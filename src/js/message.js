@@ -3,6 +3,61 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentReplyForm = null;
     let currentActiveButton = null; // 记录当前激活的按钮
 
+    // 检查登录状态的函数
+    function checkLoginStatus() {
+        fetch('/api/auth/login_status', {
+            credentials: 'include' // 包含cookie
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.loggedIn) {
+                    updateNavbar(data.username);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+// 更新导航栏的函数
+    function updateNavbar(username) {
+        const navRight = document.getElementById('navRight');
+
+        // 创建新的导航项
+        navRight.innerHTML = `
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" 
+               data-bs-toggle="dropdown" aria-expanded="false">
+                ${username}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="/profile.php">个人中心</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><button class="dropdown-item" id="logoutButton">注销</button></li>
+            </ul>
+        </li>
+    `;
+
+        // 添加注销事件监听
+        document.getElementById('logoutButton').addEventListener('click', logout);
+    }
+
+    // 注销函数
+    function logout() {
+        fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.ok) {
+                    // 刷新页面重置导航栏
+                    window.location.href = '/';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+// 页面加载时检查登录状态
+    document.addEventListener('DOMContentLoaded', checkLoginStatus);
+
     // 回复按钮点击处理
     document.body.addEventListener('click', (e) => {
         if (e.target.closest('.reply-btn')) {
@@ -115,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!content) return;
 
         try {
-            const response = await fetch('api/add_message.php', {
+            const response = await fetch('index.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -141,17 +196,45 @@ document.addEventListener('DOMContentLoaded', () => {
     loadMessages();
 
     async function loadMessages() {
+        const container = document.getElementById('commentList'); // 获取容器引用
+
         try {
-            const response = await fetch('api/get_messages.php');
+            const response = await fetch('index.php', {
+                method: 'POST'
+            });
             const { data } = await response.json();
             renderMessages(data);
         } catch (error) {
             console.error('加载留言失败:', error);
+
+            // 清空容器并显示错误提示
+            container.innerHTML = '';
+            const errorState = document.createElement('div');
+            errorState.className = 'text-center py-5 text-danger';
+            errorState.innerHTML = `
+            <i class="bi bi-wifi-off fs-2"></i>
+            <p class="mt-2 mb-0">网络连接失败，请检查网络后重试</p>
+            <p class="mt-2 mb-0">错误信息：${error}</p>
+        `;
+            container.appendChild(errorState);
         }
     }
 
     function renderMessages(messages, container = document.getElementById('commentList'), level = 0) {
         container.innerHTML = '';
+
+        // 添加空状态提示（仅在顶级容器且无留言时显示）
+        if (level === 0 && (!messages || messages.length === 0)) {
+            const emptyState = document.createElement('div');
+            emptyState.className = 'text-center py-5 text-muted';
+            emptyState.innerHTML = `
+            <i class="bi bi-chat-square-text fs-2"></i>
+            <p class="mt-2 mb-0">暂无留言，快来抢沙发吧~</p>
+        `;
+            container.appendChild(emptyState);
+            return; // 直接返回不再继续执行
+        }
+
         messages.forEach(msg => {
             const messageEl = createMessageElement(msg, level);
             container.appendChild(messageEl);
