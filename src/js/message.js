@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${username}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="person.php">个人中心</a></li>
+                <li><a class="dropdown-item" href="person.php?user=&#034;${username}&#034;">个人中心</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item" id="logoutButton">注销</button></li>
             </ul>
