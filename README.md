@@ -9,6 +9,11 @@
   |
   |--/src
       |
+      |--/api/auth
+        |
+        |--login_status.php // 登录状态管理
+        |--logout.php // 注销管理
+      |
       |--/css
         |
         |-- message_style.css  // 前端关于留言部分的样式表
@@ -53,3 +58,5 @@
 如果学长们有空的话也可以看看[仓库](https://github.com/24kcsplus/ChatBoard)
 
 config.php和docker部署的部分应记得改对应的信息，仓库中的信息仅供测试使用，注意信息安全
+
+搞前后端分离应该把页面和接口彻底分离的，但是已经写了这么多了。。

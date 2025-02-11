@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 检查登录状态的函数
     function checkLoginStatus() {
-        fetch('/api/auth/login_status', {
+        fetch('api/auth/login_status.php', {
             credentials: 'include' // 包含cookie
         })
             .then(response => response.json())
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${username}
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="/profile.php">个人中心</a></li>
+                <li><a class="dropdown-item" href="person.php">个人中心</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item" id="logoutButton">注销</button></li>
             </ul>
@@ -42,21 +42,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 注销函数
     function logout() {
-        fetch('/api/auth/logout', {
+        fetch('api/auth/logout.php', {
             method: 'POST',
             credentials: 'include'
         })
             .then(response => {
                 if (response.ok) {
                     // 刷新页面重置导航栏
-                    window.location.href = '/';
+                    window.location.href = 'index.php';
                 }
             })
             .catch(error => console.error('Error:', error));
     }
 
-// 页面加载时检查登录状态
-    document.addEventListener('DOMContentLoaded', checkLoginStatus);
+    checkLoginStatus();
 
     // 回复按钮点击处理
     document.body.addEventListener('click', (e) => {
